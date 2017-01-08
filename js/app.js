@@ -22,7 +22,7 @@ Enemy.prototype.update = function(dt) {
   if (player) {
     // Determine if the enemy and player are in contact
     if ((Math.abs(this.x - player.x) < 50) && (Math.abs(this.y - player.y) < 50)){
-      player.reset()
+      player.reset();
       // Subtract a point unless the player would have a negative score
       if (player.score > 0){
         player.score--;
@@ -55,13 +55,13 @@ var Player = function(){
   this.x = 200;
   this.y = 400;
   this.score = 0;
-}
+};
 
 // Move player back to starting position
 Player.prototype.reset = function(){
   this.x = 200;
   this.y = 400;
-}
+};
 
 Player.prototype.update = function(){
   //Display the players score
@@ -81,7 +81,7 @@ Player.prototype.update = function(){
     this.score = this.score + getRandom(5, 15);
     //bonus for collecting the gem
   }
-}
+};
 
 Player.prototype.handleInput = function(keycode){
   // Unless the player will leave the game boundaries, move according to key input
@@ -94,76 +94,76 @@ Player.prototype.handleInput = function(keycode){
   } else if (keycode === 'down' && (this.y < 425)){
     this.y = this.y + 25;
   }
-}
+};
 
 //Render the player
 Player.prototype.render = function(){
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 //Create a default flash type for all items that briefly appear on the screen
 var FlashItem = function(){
   this.x = -100;
   this.y = -100;
-}
+};
 
 //Show flash item for 500 milliseconds on the middle of the screen, both Gem and Heart will use this
 FlashItem.prototype.flash = function(){
   this.x = 200;
   this.y = 200;
   window.setTimeout(this.reset.bind(this), 500);
-}
+};
 
 // Once the item has shown on the page, hide it again
 FlashItem.prototype.reset = function(){
   this.x = -100;
   this.y = -100;
-}
+};
 
 // Render the default flash item
 FlashItem.prototype.render = function(){
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // Set custom attributes for the Gem item
 var Gem = function(){
   FlashItem.call(this);
-  this.sprite = 'images/Gem Blue.png'
+  this.sprite = 'images/Gem Blue.png';
   this.clock = 0;
   this.counter = getRandom(1000, 100000);
-}
+};
 
 Gem.prototype = Object.create(FlashItem.prototype);
 
 // When the clock meets the randomly determined counter time, show the Gem
 Gem.prototype.render = function(){
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  this.clock++
+  this.clock++;
   if (this.clock === this.counter) {
     this.randomAppearance();
   }
-}
+};
 
 // Show the gem and then hide after 500 milliseconds
 Gem.prototype.randomAppearance = function(){
   this.x = 200;
   this.y = 150;
   window.setTimeout(this.reset.bind(this), 500);
-}
+};
 
 // Create the Rock, a FlashItem that appears when enemies crash into the Player
 var Rock = function(){
   FlashItem.call(this);
   this.sprite = 'images/Rock.png';
-}
+};
 
 Rock.prototype =  Object.create(FlashItem.prototype);
 
 //Create the Heart, a FlashItem that appears when the Player crosses to the river
 var Heart = function(){
   FlashItem.call(this);
-  this.sprite = 'images/Heart.png'
-}
+  this.sprite = 'images/Heart.png';
+};
 
 Heart.prototype =  Object.create(FlashItem.prototype);
 
