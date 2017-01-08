@@ -152,7 +152,6 @@ var Engine = (function(global) {
         });
 
         player.render();
-        gem.render()
         heart.render();
         rock.render();
     }
@@ -177,7 +176,6 @@ var Engine = (function(global) {
         'images/char-boy.png',
         'images/char-princess-girl.png',
         'images/Heart.png',
-        'images/Gem Blue.png',
         'images/Rock.png',
     ]);
     Resources.onReady(init);
